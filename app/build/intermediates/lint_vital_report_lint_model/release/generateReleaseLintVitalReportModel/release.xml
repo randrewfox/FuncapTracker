@@ -3,7 +3,7 @@
     useSupportLibraryVectorDrawables="true"
     package="com.funcap.tracker"
     minSdkVersion="29"
-    targetSdkVersion="36.0"
+    targetSdkVersion="37.0"
     shrinking="true"
     mergedManifest="build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml"
     manifestMergeReport="build/outputs/logs/manifest-merger-release-report.txt"
@@ -27,6 +27,6 @@
       type="MAIN"
       applicationId="com.funcap.tracker"
       generatedSourceFolders="build/generated/ksp/release/java:build/generated/ksp/release/kotlin:build/generated/ap_generated_sources/release/out"
-      desugaredMethodsFiles="/Users/andrew/.gradle/caches/9.8.0/transforms/4ccb6070bc8b19b976ac82411390ede2/transformed/D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="/Users/andrew/.gradle/caches/9.8.1/transforms/d1042b130e46c2e6149dceb29f2be23e/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

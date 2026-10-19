@@ -262,6 +262,14 @@ object FuncapCatalog {
         }
 
     /**
+     * Extracts only the responses for questions that map directly to FUNCAP27.
+     */
+    fun getMappedFuncap27Responses(itemResponses: Map<Int, Int>): Map<Int, Int> {
+        val funcap27QuestionIds = questionsFor(TestType.FUNCAP27).map { it.id }.toSet()
+        return itemResponses.filterKeys { it in funcap27QuestionIds }
+    }
+
+    /**
      * Computes each domain mean (A..H) and the overall score (mean of the 8 domain means).
      * When a FUNCAP55 test is taken, also computes the equivalent FUNCAP27 score from the 27 subset items.
      */

@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+import java.util.Locale
+
 data class ActiveQuestionnaireState(
     val testType: TestType = TestType.FUNCAP27,
     val selectedDomainIndex: Int = 0,
@@ -40,6 +42,12 @@ data class ActiveQuestionnaireState(
 
     val isComplete: Boolean
         get() = answeredCount == totalCount
+
+    val mappedFuncap27AnsweredCount: Int
+        get() {
+            val funcap27Ids = FuncapCatalog.questionsFor(TestType.FUNCAP27).map { it.id }.toSet()
+            return funcap27Ids.count { responses.containsKey(it) }
+        }
 }
 
 class FuncapViewModel(application: Application) : AndroidViewModel(application) {
@@ -63,8 +71,25 @@ class FuncapViewModel(application: Application) : AndroidViewModel(application) 
         _statusMessage.value = null
     }
 
-    fun startNewTest(testType: TestType) {
-        _questionnaireState.value = ActiveQuestionnaireState(testType = testType)
+    fun startNewTest(testType: TestType, preserveResponses: Boolean = false) {
+        if (preserveResponses) {
+            _questionnaireState.update { currentState ->
+                val validQuestions = FuncapCatalog.questionsFor(testType).map { it.id }.toSet()
+                val filteredResponses = currentState.responses.filterKeys { it in validQuestions }
+                ActiveQuestionnaireState(
+                    testType = testType,
+                    selectedDomainIndex = currentState.selectedDomainIndex,
+                    responses = filteredResponses,
+                    notes = currentState.notes
+                )
+            }
+        } else {
+            _questionnaireState.value = ActiveQuestionnaireState(testType = testType)
+        }
+    }
+
+    fun switchTestType(testType: TestType) {
+        startNewTest(testType = testType, preserveResponses = true)
     }
 
     fun selectDomainTab(index: Int) {
@@ -88,8 +113,9 @@ class FuncapViewModel(application: Application) : AndroidViewModel(application) 
     fun submitCurrentTest(onSaved: (Long) -> Unit) {
         val state = _questionnaireState.value
         val calc = FuncapCatalog.calculateScores(state.testType, state.responses)
+        val now = System.currentTimeMillis()
         val entity = AssessmentEntity(
-            timestampEpochMillis = System.currentTimeMillis(),
+            timestampEpochMillis = now,
             testType = state.testType.name,
             totalScore = calc.totalScore,
             equivalentFuncap27Score = calc.equivalentFuncap27Score,
@@ -99,7 +125,28 @@ class FuncapViewModel(application: Application) : AndroidViewModel(application) 
         )
         viewModelScope.launch {
             val newId = dao.insertAssessment(entity)
-            _statusMessage.value = "${state.testType.displayName} score (${String.format("%.2f", calc.totalScore)}) saved."
+            if (state.testType == TestType.FUNCAP55) {
+                // Also save the mapped FUNCAP27 assessment so the user gets a score for both tests
+                val funcap27Responses = FuncapCatalog.getMappedFuncap27Responses(state.responses)
+                if (funcap27Responses.isNotEmpty()) {
+                    val calc27 = FuncapCatalog.calculateScores(TestType.FUNCAP27, funcap27Responses)
+                    val entity27 = AssessmentEntity(
+                        timestampEpochMillis = now + 1L,
+                        testType = TestType.FUNCAP27.name,
+                        totalScore = calc27.totalScore,
+                        equivalentFuncap27Score = calc27.totalScore,
+                        domainScoresJson = AssessmentEntity.encodeDomainScores(calc27.domainScores),
+                        itemResponsesJson = AssessmentEntity.encodeItemResponses(funcap27Responses),
+                        notes = state.notes.trim()
+                    )
+                    dao.insertAssessment(entity27)
+                    _statusMessage.value = "Saved FUNCAP55 (${String.format(Locale.US, "%.2f", calc.totalScore)}) and mapped FUNCAP27 (${String.format(Locale.US, "%.2f", calc27.totalScore)}) scores."
+                } else {
+                    _statusMessage.value = "${state.testType.displayName} score (${String.format(Locale.US, "%.2f", calc.totalScore)}) saved."
+                }
+            } else {
+                _statusMessage.value = "${state.testType.displayName} score (${String.format(Locale.US, "%.2f", calc.totalScore)}) saved."
+            }
             onSaved(newId)
         }
     }

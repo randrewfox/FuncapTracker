@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -221,7 +222,7 @@ fun FuncapTrackerAppRoot(viewModel: FuncapViewModel) {
                     onSelectDomain = viewModel::selectDomainTab,
                     onAnswerQuestion = viewModel::answerQuestion,
                     onUpdateNotes = viewModel::updateNotes,
-                    onSwitchTestType = viewModel::startNewTest,
+                    onSwitchTestType = viewModel::switchTestType,
                     onSubmit = {
                         viewModel.submitCurrentTest { savedId ->
                             selectedAssessmentId = savedId
@@ -742,6 +743,12 @@ private fun TakeTestScreen(
         )
     }
 
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(state.selectedDomainIndex, state.testType) {
+        listState.scrollToItem(0)
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         // Test Variant Switcher + Progress Header
         Surface(
@@ -775,8 +782,13 @@ private fun TakeTestScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+                    val progressText = if (state.testType == TestType.FUNCAP55) {
+                        "Answered ${state.answeredCount} of ${state.totalCount} (FUNCAP27 mapped: ${state.mappedFuncap27AnsweredCount}/27)"
+                    } else {
+                        "Answered ${state.answeredCount} of ${state.totalCount}"
+                    }
                     Text(
-                        text = "Answered ${state.answeredCount} of ${state.totalCount}",
+                        text = progressText,
                         style = MaterialTheme.typography.labelMedium
                     )
                     val pct = if (state.totalCount > 0) {
@@ -833,6 +845,7 @@ private fun TakeTestScreen(
 
         // Questions List for Current Domain
         LazyColumn(
+            state = listState,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth(),
@@ -927,11 +940,33 @@ private fun QuestionItemCard(
 ) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(14.dp)) {
-            Text(
-                text = "${question.displayNumber(testType)}. ${question.text}",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "${question.displayNumber(testType)}. ${question.text}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.weight(1f)
+                )
+                if (testType == TestType.FUNCAP55 && question.funcap27Number != null) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Surface(
+                        color = MaterialTheme.colorScheme.tertiaryContainer,
+                        shape = RoundedCornerShape(4.dp)
+                    ) {
+                        Text(
+                            text = "FUNCAP27 #${question.funcap27Number}",
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(10.dp))
 
             // 0 to 6 Rating Row
