@@ -1,7 +1,0 @@
-#Mon Oct 19 14:50:28 EDT 2026
-base.0=/Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
-base.1=/Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/global_synthetics_dex/debugAndroidTest/generateDebugAndroidTestGlobalSynthetics/classes.dex
-path.0=0/classes.dex
-path.1=classes.dex
-renamed.0=classes.dex
-renamed.1=classes2.dex

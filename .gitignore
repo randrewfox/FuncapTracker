@@ -1,0 +1,35 @@
+# Gradle build artifacts
+.gradle/
+build/
+*/build/
+
+# Built application / release outputs
+*.apk
+*.aar
+*.aab
+app/release/
+
+# Local properties (contains local SDK paths)
+local.properties
+
+# Kotlin / KSP internal build files
+.kotlin/
+.ksp/
+
+# Android Studio / IntelliJ IDEA
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/appInsightsSettings.xml
+.idea/deviceStreaming.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+.idea/migrations.xml
+.idea/shelf/
+
+# OS specific files
+.DS_Store
+Thumbs.db

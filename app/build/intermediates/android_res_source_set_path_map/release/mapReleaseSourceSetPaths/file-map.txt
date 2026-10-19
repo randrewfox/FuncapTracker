@@ -1,8 +1,0 @@
-com.funcap.tracker.app-updated_navigation_xml-0 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/generated/updated_navigation_xml/release
-com.funcap.tracker.app-packageReleaseResources-1 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/incremental/release/packageReleaseResources/merged.dir
-com.funcap.tracker.app-packageReleaseResources-2 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
-com.funcap.tracker.app-merged-not-compiled-resources-3 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/merged-not-compiled-resources/release
-com.funcap.tracker.app-release-4 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/merged_res/release/mergeReleaseResources
-com.funcap.tracker.app-main-5 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/src/main/res
-com.funcap.tracker.app-release-6 /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/src/release/res
-gradleHome-0 /Users/andrew/.gradle

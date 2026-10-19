@@ -1,4 +1,0 @@
-#Mon Oct 19 12:59:41 EDT 2026
-base.0=/Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
