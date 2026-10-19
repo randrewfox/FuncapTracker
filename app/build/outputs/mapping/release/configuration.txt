@@ -505,26 +505,6 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 
 # End of content from com.squareup.okio:okio-jvm:3.4.0 (extracted file: /Users/andrew/.gradle/caches/9.8.0/transforms/df4901ed0990cce2f86970d1769f1599/transformed/shrink-rules/lib/META-INF/proguard/okio.pro)
-# The proguard configuration file for the following section is AAPT2 generated keep rules (extracted file: /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt)
--keep class androidx.core.app.CoreComponentFactory { <init>(); }
--keep class androidx.profileinstaller.ProfileInstallReceiver { <init>(); }
--keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
--keep class androidx.startup.InitializationProvider { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
--keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
--keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
--keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
--keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
--keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
--keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
--keep class com.funcap.tracker.FuncapApplication { <init>(); }
--keep class com.funcap.tracker.MainActivity { <init>(); }
-
-# End of content from AAPT2 generated keep rules (extracted file: /Users/andrew/AndroidApp_DevStuff/FuncapTracker/app/build/intermediates/aapt_proguard_file/release/processReleaseResources/aapt_rules.txt)
 # The proguard configuration file for the following section is <unknown>
 
 # End of content from <unknown>

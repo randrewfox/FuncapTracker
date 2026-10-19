@@ -3,7 +3,7 @@
     useSupportLibraryVectorDrawables="true"
     package="com.funcap.tracker"
     minSdkVersion="29"
-    targetSdkVersion="35"
+    targetSdkVersion="36.0"
     shrinking="true"
     mergedManifest="build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml"
     manifestMergeReport="build/outputs/logs/manifest-merger-release-report.txt"

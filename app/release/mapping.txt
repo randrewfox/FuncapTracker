@@ -3,8 +3,8 @@
 # min_api: 29
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.2"}
-# pg_map_id: 45ffce8ec69567061e8be09687bef13623bf65b9599061e2443fbe62c52afcc0
-# pg_map_hash: SHA-256 00ff57ea4d91ab9ba5cfb32a44439eee7fd4cbf7da91f12b71604cac86947478
+# pg_map_id: ec5f4c36cb742fedbaf6acbe8b2f808e1996295516d94738a0d157983dd93a8a
+# pg_map_hash: SHA-256 841b8d6a731de91c4332922436e75dffe67f53f545262f2fc63e6c7337359b85
 _COROUTINE.ArtificialStackFrames -> R8$$REMOVED$$CLASS$$0:
 # {"id":"sourceFile","fileName":"CoroutineDebugging.kt"}
 _COROUTINE.ArtificialStackFramesUnsafe -> ta:
@@ -179274,6 +179274,7 @@ androidx.room.RoomDatabase$Builder -> l51:
       # {"id":"com.android.tools.r8.residualsignature","signature":"Ljava/util/ArrayList;"}
     boolean requireMigration -> n
     boolean allowDestructiveMigrationOnDowngrade -> o
+    boolean allowDestructiveMigrationForAllTables -> p
     1:3:void <init>(android.content.Context,java.lang.Class,java.lang.String):898:898 -> <init>
     4:10:void <init>(android.content.Context,java.lang.Class,java.lang.String):905:905 -> <init>
     11:17:void <init>(android.content.Context,java.lang.Class,java.lang.String):910:910 -> <init>
@@ -179328,7 +179329,7 @@ androidx.room.RoomDatabase$Builder -> l51:
     75:76:RoomDatabase RoomDatabase$Builder.build():0 -> b
     77:80:androidx.room.RoomDatabase build():0:0 -> b
     77:80:RoomDatabase RoomDatabase$Builder.build():0 -> b
-      # {"id":"com.android.tools.r8.outlineCallsite","positions":{"1":391,"3":393,"6":396,"9":400},"outline":"Lcu0;h(Ljava/lang/String;I)Ljava/lang/String;"}
+      # {"id":"com.android.tools.r8.outlineCallsite","positions":{"1":393,"3":395,"6":398,"9":402},"outline":"Lcu0;h(Ljava/lang/String;I)Ljava/lang/String;"}
     81:84:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):529:529 -> b
     81:84:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
     81:84:androidx.room.RoomDatabase build():1687 -> b
@@ -179362,90 +179363,92 @@ androidx.room.RoomDatabase$Builder -> l51:
     141:144:RoomDatabase RoomDatabase$Builder.build():0 -> b
     145:146:androidx.room.RoomDatabase build():1796:1796 -> b
     145:146:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    147:152:androidx.room.RoomDatabase build():1797:1797 -> b
-    147:152:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    153:179:androidx.room.RoomDatabase build():1785:1785 -> b
-    153:179:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    180:185:androidx.room.RoomDatabase build():1811:1811 -> b
-    180:185:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    186:199:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):30:30 -> b
-    186:199:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    186:199:androidx.room.RoomDatabase build():1811 -> b
-    186:199:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    200:206:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):31:31 -> b
-    200:206:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    200:206:androidx.room.RoomDatabase build():1811 -> b
-    200:206:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    207:227:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):33:33 -> b
-    207:227:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    207:227:androidx.room.RoomDatabase build():1811 -> b
-    207:227:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    228:234:java.lang.String kotlin.text.StringsKt__StringsJVMKt.replace(java.lang.String,char,char,boolean):70:70 -> b
-    228:234:java.lang.String kotlin.text.StringsKt__StringsJVMKt.replace$default(java.lang.String,char,char,boolean,int,java.lang.Object):68 -> b
-    228:234:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):34 -> b
-    228:234:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    228:234:androidx.room.RoomDatabase build():1811 -> b
-    228:234:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    235:240:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):34:34 -> b
-    235:240:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    235:240:androidx.room.RoomDatabase build():1811 -> b
-    235:240:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    241:248:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):37:37 -> b
-    241:248:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    241:248:androidx.room.RoomDatabase build():1811 -> b
-    241:248:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    249:266:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):40:40 -> b
-    249:266:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    249:266:androidx.room.RoomDatabase build():1811 -> b
-    249:266:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    267:277:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):43:43 -> b
-    267:277:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    267:277:androidx.room.RoomDatabase build():1811 -> b
-    267:277:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    278:285:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):44:44 -> b
-    278:285:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    278:285:androidx.room.RoomDatabase build():1811 -> b
-    278:285:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    286:287:androidx.room.RoomDatabase build():1811:1811 -> b
-    286:287:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    288:297:androidx.room.RoomDatabase build():1812:1812 -> b
-    288:297:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    298:321:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):54:54 -> b
-    298:321:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    298:321:androidx.room.RoomDatabase build():1811 -> b
-    298:321:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    322:345:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):52:52 -> b
-    322:345:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    322:345:androidx.room.RoomDatabase build():1811 -> b
-    322:345:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    346:347:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):46:46 -> b
-    346:347:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    346:347:androidx.room.RoomDatabase build():1811 -> b
-    346:347:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    348:378:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):47:47 -> b
-    348:378:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    348:378:androidx.room.RoomDatabase build():1811 -> b
-    348:378:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    379:382:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):46:46 -> b
-    379:382:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
-    379:382:androidx.room.RoomDatabase build():1811 -> b
-    379:382:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    383:386:androidx.room.RoomDatabase build():1794:1794 -> b
-    383:386:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    387:390:androidx.room.RoomDatabase build():1793:1793 -> b
-    387:390:RoomDatabase RoomDatabase$Builder.build():0 -> b
-    391:391:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
-    391:391:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
-    391:391:androidx.room.RoomDatabase build():1687 -> b
+    147:148:androidx.room.RoomDatabase build():1797:1797 -> b
+    147:148:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    149:154:androidx.room.RoomDatabase build():1806:1806 -> b
+    149:154:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    155:181:androidx.room.RoomDatabase build():1785:1785 -> b
+    155:181:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    182:187:androidx.room.RoomDatabase build():1811:1811 -> b
+    182:187:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    188:201:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):30:30 -> b
+    188:201:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    188:201:androidx.room.RoomDatabase build():1811 -> b
+    188:201:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    202:208:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):31:31 -> b
+    202:208:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    202:208:androidx.room.RoomDatabase build():1811 -> b
+    202:208:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    209:229:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):33:33 -> b
+    209:229:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    209:229:androidx.room.RoomDatabase build():1811 -> b
+    209:229:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    230:236:java.lang.String kotlin.text.StringsKt__StringsJVMKt.replace(java.lang.String,char,char,boolean):70:70 -> b
+    230:236:java.lang.String kotlin.text.StringsKt__StringsJVMKt.replace$default(java.lang.String,char,char,boolean,int,java.lang.Object):68 -> b
+    230:236:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):34 -> b
+    230:236:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    230:236:androidx.room.RoomDatabase build():1811 -> b
+    230:236:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    237:242:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):34:34 -> b
+    237:242:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    237:242:androidx.room.RoomDatabase build():1811 -> b
+    237:242:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    243:250:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):37:37 -> b
+    243:250:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    243:250:androidx.room.RoomDatabase build():1811 -> b
+    243:250:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    251:268:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):40:40 -> b
+    251:268:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    251:268:androidx.room.RoomDatabase build():1811 -> b
+    251:268:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    269:279:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):43:43 -> b
+    269:279:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    269:279:androidx.room.RoomDatabase build():1811 -> b
+    269:279:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    280:287:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):44:44 -> b
+    280:287:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    280:287:androidx.room.RoomDatabase build():1811 -> b
+    280:287:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    288:289:androidx.room.RoomDatabase build():1811:1811 -> b
+    288:289:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    290:299:androidx.room.RoomDatabase build():1812:1812 -> b
+    290:299:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    300:323:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):54:54 -> b
+    300:323:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    300:323:androidx.room.RoomDatabase build():1811 -> b
+    300:323:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    324:347:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):52:52 -> b
+    324:347:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    324:347:androidx.room.RoomDatabase build():1811 -> b
+    324:347:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    348:349:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):46:46 -> b
+    348:349:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    348:349:androidx.room.RoomDatabase build():1811 -> b
+    348:349:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    350:380:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):47:47 -> b
+    350:380:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    350:380:androidx.room.RoomDatabase build():1811 -> b
+    350:380:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    381:384:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl(java.lang.Class,java.lang.String):46:46 -> b
+    381:384:java.lang.Object androidx.room.util.KClassUtil.findAndInstantiateDatabaseImpl$default(java.lang.Class,java.lang.String,int,java.lang.Object):28 -> b
+    381:384:androidx.room.RoomDatabase build():1811 -> b
+    381:384:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    385:388:androidx.room.RoomDatabase build():1794:1794 -> b
+    385:388:RoomDatabase RoomDatabase$Builder.build():0 -> b
+    389:392:androidx.room.RoomDatabase build():1793:1793 -> b
+    389:392:RoomDatabase RoomDatabase$Builder.build():0 -> b
     393:393:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
     393:393:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
     393:393:androidx.room.RoomDatabase build():1687 -> b
-    396:396:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
-    396:396:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
-    396:396:androidx.room.RoomDatabase build():1687 -> b
-    400:400:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
-    400:400:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
-    400:400:androidx.room.RoomDatabase build():1687 -> b
+    395:395:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
+    395:395:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
+    395:395:androidx.room.RoomDatabase build():1687 -> b
+    398:398:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
+    398:398:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
+    398:398:androidx.room.RoomDatabase build():1687 -> b
+    402:402:void androidx.room.RoomDatabaseKt__RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):530:530 -> b
+    402:402:void androidx.room.RoomDatabaseKt.validateMigrationsNotRequired(java.util.Set,java.util.Set):1 -> b
+    402:402:androidx.room.RoomDatabase build():1687 -> b
 androidx.room.RoomDatabase$Callback -> m51:
 # {"id":"sourceFile","fileName":"RoomDatabase.android.kt"}
     4:6:void androidx.work.impl.CleanupCallback.onOpen(androidx.sqlite.db.SupportSQLiteDatabase):197:197 -> a
@@ -204096,13 +204099,15 @@ com.funcap.tracker.data.FuncapDatabase$Companion -> com.funcap.tracker.data.Func
     18:19:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):131:131 -> getInstance
     20:21:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):132:132 -> getInstance
     22:26:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):129:129 -> getInstance
-    27:29:androidx.room.RoomDatabase$Builder androidx.room.RoomDatabase$Builder.fallbackToDestructiveMigration():1340:1340 -> getInstance
+    27:29:androidx.room.RoomDatabase$Builder androidx.room.RoomDatabase$Builder.fallbackToDestructiveMigration(boolean):1369:1369 -> getInstance
     27:29:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):134 -> getInstance
-    30:31:androidx.room.RoomDatabase$Builder androidx.room.RoomDatabase$Builder.fallbackToDestructiveMigration():1341:1341 -> getInstance
+    30:31:androidx.room.RoomDatabase$Builder androidx.room.RoomDatabase$Builder.fallbackToDestructiveMigration(boolean):1370:1370 -> getInstance
     30:31:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):134 -> getInstance
-    32:37:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):135:135 -> getInstance
-    38:40:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):136:136 -> getInstance
-    41:46:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):128:128 -> getInstance
+    32:33:androidx.room.RoomDatabase$Builder androidx.room.RoomDatabase$Builder.fallbackToDestructiveMigration(boolean):1371:1371 -> getInstance
+    32:33:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):134 -> getInstance
+    34:39:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):135:135 -> getInstance
+    40:42:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):136:136 -> getInstance
+    43:48:com.funcap.tracker.data.FuncapDatabase getInstance(android.content.Context):128:128 -> getInstance
 com.funcap.tracker.data.FuncapDatabase_Impl -> com.funcap.tracker.data.FuncapDatabase_Impl:
 # {"id":"sourceFile","fileName":"FuncapDatabase_Impl.kt"}
     kotlin.Lazy _assessmentDao -> _assessmentDao
