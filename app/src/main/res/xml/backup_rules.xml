@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Include Room SQLite database files and DataStore preferences for Google Drive Auto Backup -->
+    <include domain="database" path="funcap_tracker.db" />
+    <include domain="database" path="funcap_tracker.db-wal" />
+    <include domain="database" path="funcap_tracker.db-shm" />
+    <include domain="file" path="datastore/funcap_settings.preferences_pb" />
+</full-backup-content>
