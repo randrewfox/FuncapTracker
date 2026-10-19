@@ -1,5 +1,7 @@
 # FUNCAP Tracker — Native Android App
 
+> If you have concerns that this app used AI to develop it, we understand and apologize for not being able to provide an entirely human-built app. We mainly wanted to use this app for ourselves and felt that opening it to more people would help offset the cost of using AI. Thank you for your consideration.
+
 A native Kotlin + Jetpack Compose Android application designed to take, score, and track **FUNCAP55** and **FUNCAP27** functional capacity assessments over time.
 
 ## Key Features
