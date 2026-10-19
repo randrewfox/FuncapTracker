@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FuncapTracker</title>
+  <!-- GitHub Markdown CSS for authentic README styling -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css">
+  <!-- Marked.js for parsing Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #24292f;
+      --border-color: #d0d7de;
+      --btn-bg: #24292f;
+      --btn-text: #ffffff;
+      --btn-hover: #32383f;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --border-color: #30363d;
+        --btn-bg: #238636;
+        --btn-text: #ffffff;
+        --btn-hover: #2ea043;
+      }
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    .container {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 45px 24px;
+    }
+    .markdown-body {
+      background-color: transparent !important;
+    }
+    .footer-nav {
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .btn:hover {
+      background-color: var(--btn-hover);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover {
+      background-color: rgba(175, 184, 193, 0.2);
+    }
+    .loading {
+      text-align: center;
+      padding: 40px 0;
+      color: #6e7781;
+    }
+    @media (max-width: 767px) {
+      .container {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Dynamic Markdown Content Area -->
+    <article id="content" class="markdown-body">
+      <div class="loading">Loading content...</div>
+    </article>
+
+    <!-- Bottom Action Bar -->
+    <div class="footer-nav">
+      <button id="toggle-btn" class="btn" onclick="toggleView()">Privacy Policy</button>
+    </div>
+  </div>
+
+  <script>
+    const REPO_OWNER = 'randrewfox';
+    const REPO_NAME = 'FuncapTracker';
+    
+    let currentView = 'readme'; // 'readme' or 'privacy'
+    let readmeHtml = '';
+    let privacyHtml = '';
+    let privacyFileUrl = null;
+
+    // Common filenames used for Privacy Policies in repositories
+    const candidatePrivacyFiles = [
+      'PRIVACY.md',
+      'PRIVACY_POLICY.md',
+      'PrivacyPolicy.md',
+      'Privacy.md',
+      'privacy.md',
+      'privacy-policy.md',
+      'privacy_policy.md'
+    ];
+
+    async function fetchText(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('File not found');
+      return await response.text();
+    }
+
+    async function loadReadme() {
+      const contentEl = document.getElementById('content');
+      try {
+        // 1. Try relative README.md first
+        const md = await fetchText('./README.md');
+        readmeHtml = marked.parse(md);
+        contentEl.innerHTML = readmeHtml;
+      } catch (e) {
+        try {
+          // 2. Fallback to GitHub API default branch README
+          const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/readme`);
+          const data = await res.json();
+          const md = await fetchText(data.download_url);
+          readmeHtml = marked.parse(md);
+          contentEl.innerHTML = readmeHtml;
+        } catch (err) {
+          contentEl.innerHTML = `<h1>FuncapTracker</h1><p>Welcome to FuncapTracker. Visit our <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}">GitHub Repository</a> for more details.</p>`;
+        }
+      }
+    }
+
+    async function findAndLoadPrivacyPolicy() {
+      // 1. Check via GitHub API for any file containing "privacy" in the root directory
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`);
+        if (res.ok) {
+          const files = await res.json();
+          const privacyFile = files.find(f => 
+            f.type === 'file' && f.name.toLowerCase().includes('privacy')
+          );
+          if (privacyFile) {
+            // If it's an HTML file, we can link directly to it
+            if (privacyFile.name.toLowerCase().endsWith('.html')) {
+              privacyFileUrl = `./${privacyFile.name}`;
+              return;
+            }
+            const md = await fetchText(privacyFile.download_url);
+            privacyHtml = marked.parse(md);
+            return;
+          }
+        }
+      } catch (e) {
+        // Fallback to local probing if API rate-limited
+      }
+
+      // 2. Probe common local file names
+      for (const filename of candidatePrivacyFiles) {
+        try {
+          const md = await fetchText(`./${filename}`);
+          privacyHtml = marked.parse(md);
+          return;
+        } catch (e) {
+          // Continue checking next candidate
+        }
+      }
+    }
+
+    async function toggleView() {
+      const contentEl = document.getElementById('content');
+      const btn = document.getElementById('toggle-btn');
+
+      if (currentView === 'readme') {
+        if (!privacyHtml && !privacyFileUrl) {
+          contentEl.innerHTML = '<div class="loading">Loading Privacy Policy...</div>';
+          await findAndLoadPrivacyPolicy();
+        }
+
+        if (privacyFileUrl) {
+          window.location.href = privacyFileUrl;
+          return;
+        }
+
+        if (privacyHtml) {
+          contentEl.innerHTML = privacyHtml;
+          btn.textContent = '← Back to Home (README)';
+          btn.classList.add('btn-secondary');
+          currentView = 'privacy';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          history.pushState({ view: 'privacy' }, 'Privacy Policy', '#privacy');
+        } else {
+          // Fallback if file is on GitHub repo
+          window.location.href = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
+        }
+      } else {
+        contentEl.innerHTML = readmeHtml;
+        btn.textContent = 'Privacy Policy';
+        btn.classList.remove('btn-secondary');
+        currentView = 'readme';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.pushState({ view: 'readme' }, 'FuncapTracker', window.location.pathname);
+      }
+    }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', () => {
+      if (window.location.hash === '#privacy' && currentView !== 'privacy') {
+        toggleView();
+      } else if (window.location.hash !== '#privacy' && currentView === 'privacy') {
+        toggleView();
+      }
+    });
+
+    // Initialize page
+    (async function init() {
+      await loadReadme();
+      // Pre-fetch privacy policy in the background for instant switching
+      findAndLoadPrivacyPolicy().then(() => {
+        if (window.location.hash === '#privacy') {
+          toggleView();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
