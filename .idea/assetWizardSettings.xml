@@ -91,7 +91,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/../funcap_app_icon_pack (1)/res/drawable/ic_launcher_foreground.xml" />
+                                                <entry key="scalingPercent" value="65" />
                                               </map>
                                             </option>
                                           </PersistentState>
