@@ -4,6 +4,16 @@
 
 A native Kotlin + Jetpack Compose Android application designed to take, score, and track **FUNCAP55** and **FUNCAP27** functional capacity assessments over time.
 
+## Request Access & Download
+FUNCAP Tracker is available on the Google Play Store.
+
+- **Request Access**: To request access to testing and use the app, please fill out the [Access Request Form](https://forms.gle/2tzaVuC8jJSwMXMk6).
+- **Google Play Store**: Once granted access, you can download the app from Google Play:
+
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.funcap.tracker)
+
+*(Direct link: [https://play.google.com/store/apps/details?id=com.funcap.tracker](https://play.google.com/store/apps/details?id=com.funcap.tracker))*
+
 ## Key Features
 1. **Complete Official FUNCAP55 & FUNCAP27 Questionnaires**:
    - Includes all **55 questions** of FUNCAP55 and all **27 questions** of FUNCAP27 across the 8 validated functional domains (`A` through `H`), scored on the official `0–6` activity consequence scale (Sommerfelt et al., *J. Clin. Med.* 2024;13(12):3486).
@@ -18,9 +28,3 @@ A native Kotlin + Jetpack Compose Android application designed to take, score, a
    - **Direct Google Drive Export & Restore**: Uses the Android Storage Access Framework (`ActivityResultContracts.CreateDocument` & `OpenDocument`) to save and restore lossless JSON backups (`funcap_backup_YYYYMMDD.json`) and clinician-ready CSV spreadsheets (`funcap_scores_YYYYMMDD.csv`) directly to your Google Drive folder without requiring OAuth client IDs or Google Cloud console setup.
 5. **Light Mode & Dark Mode Theme Toggle**:
    - Persisted via **Jetpack DataStore** (`UserPreferencesRepository`), featuring both a top-bar quick toggle and a dedicated Settings toggle (`Light Mode`, `Dark Mode`, `System Default`, plus a **Material You Dynamic Colors** switch).
-
-## How to Open & Run
-1. Unzip `FuncapTracker_Android_Studio_Project.zip` on your computer.
-2. Open **Android Studio** (Ladybug 2024.2.1 or newer) and select **Open** -> choose the `FuncapTracker` folder.
-3. Let Android Studio sync Gradle and download the dependencies.
-4. Connect your device via USB debugging or Wi-Fi pairing and click **Run ('app')**.
