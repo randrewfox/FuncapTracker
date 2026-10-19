@@ -1186,6 +1186,22 @@ private fun SettingsScreen(
         mutableStateOf(settings.reminderIntervalDays.toString())
     }
 
+    val packageInfo = remember(context) {
+        runCatching {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    PackageManager.PackageInfoFlags.of(0L)
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                context.packageManager.getPackageInfo(context.packageName, 0)
+            }
+        }.getOrNull()
+    }
+    val versionName = packageInfo?.versionName ?: "1.1.2"
+    val versionCode = packageInfo?.longVersionCode ?: 5L
+
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { _ -> }
@@ -1477,6 +1493,19 @@ private fun SettingsScreen(
                     Text("Export Clinical Spreadsheet (CSV to Drive)")
                 }
             }
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "FUNCAP Tracker v$versionName ($versionCode)",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
