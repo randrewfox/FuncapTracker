@@ -23,6 +23,8 @@ data class UserSettings(
     val useDynamicColor: Boolean = true, // Material You dynamic palette on Pixel 9 Pro
     val remindersEnabled: Boolean = true,
     val reminderIntervalDays: Int = 30, // Default: once a month (30 days)
+    val reminderHour: Int = 13, // Default: 1 PM (13:00)
+    val reminderMinute: Int = 0, // Default: 00
     val preferredReminderTest: TestType = TestType.FUNCAP27,
     val lastBackupEpochMillis: Long = 0L
 )
@@ -34,6 +36,8 @@ class UserPreferencesRepository(private val context: Context) {
         val USE_DYNAMIC_COLOR = booleanPreferencesKey("use_dynamic_color")
         val REMINDERS_ENABLED = booleanPreferencesKey("reminders_enabled")
         val REMINDER_INTERVAL_DAYS = intPreferencesKey("reminder_interval_days")
+        val REMINDER_HOUR = intPreferencesKey("reminder_hour")
+        val REMINDER_MINUTE = intPreferencesKey("reminder_minute")
         val PREFERRED_REMINDER_TEST = stringPreferencesKey("preferred_reminder_test")
         val LAST_BACKUP_EPOCH = longPreferencesKey("last_backup_epoch")
     }
@@ -52,6 +56,8 @@ class UserPreferencesRepository(private val context: Context) {
             useDynamicColor = prefs[Keys.USE_DYNAMIC_COLOR] ?: true,
             remindersEnabled = prefs[Keys.REMINDERS_ENABLED] ?: true,
             reminderIntervalDays = (prefs[Keys.REMINDER_INTERVAL_DAYS] ?: 30).coerceIn(1, 365),
+            reminderHour = (prefs[Keys.REMINDER_HOUR] ?: 13).coerceIn(0, 23),
+            reminderMinute = (prefs[Keys.REMINDER_MINUTE] ?: 0).coerceIn(0, 59),
             preferredReminderTest = preferredTest,
             lastBackupEpochMillis = prefs[Keys.LAST_BACKUP_EPOCH] ?: 0L
         )
@@ -72,12 +78,16 @@ class UserPreferencesRepository(private val context: Context) {
     suspend fun updateReminderConfig(
         enabled: Boolean,
         intervalDays: Int,
-        preferredTest: TestType
+        preferredTest: TestType,
+        reminderHour: Int = 13,
+        reminderMinute: Int = 0
     ) {
         context.dataStore.edit { prefs ->
             prefs[Keys.REMINDERS_ENABLED] = enabled
             prefs[Keys.REMINDER_INTERVAL_DAYS] = intervalDays.coerceIn(1, 365)
             prefs[Keys.PREFERRED_REMINDER_TEST] = preferredTest.name
+            prefs[Keys.REMINDER_HOUR] = reminderHour.coerceIn(0, 23)
+            prefs[Keys.REMINDER_MINUTE] = reminderMinute.coerceIn(0, 59)
         }
     }
 

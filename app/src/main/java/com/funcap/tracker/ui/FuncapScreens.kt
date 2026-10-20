@@ -1,8 +1,10 @@
 package com.funcap.tracker.ui
 
 import android.Manifest
+import android.app.TimePickerDialog
 import android.content.pm.PackageManager
 import android.os.Build
+import java.util.Calendar
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -112,6 +114,7 @@ private enum class AppDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FuncapTrackerAppRoot(viewModel: FuncapViewModel) {
+    val context = LocalContext.current
     val assessments by viewModel.assessments.collectAsStateWithLifecycle()
     val settings by viewModel.userSettings.collectAsStateWithLifecycle()
     val questionnaireState by viewModel.questionnaireState.collectAsStateWithLifecycle()
@@ -120,6 +123,22 @@ fun FuncapTrackerAppRoot(viewModel: FuncapViewModel) {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestination.DASHBOARD) }
     var selectedAssessmentId by rememberSaveable { mutableStateOf<Long?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val appLaunchPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { _ -> }
+
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val isGranted = ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+            if (!isGranted) {
+                appLaunchPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
 
     LaunchedEffect(statusMessage) {
         statusMessage?.let { msg ->
@@ -334,9 +353,16 @@ private fun DashboardScreen(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
+                            val timeStr = remember(settings.reminderHour, settings.reminderMinute) {
+                                val cal = Calendar.getInstance().apply {
+                                    set(Calendar.HOUR_OF_DAY, settings.reminderHour)
+                                    set(Calendar.MINUTE, settings.reminderMinute)
+                                }
+                                SimpleDateFormat("h:mm a", Locale.US).format(cal.time)
+                            }
                             Text(
                                 text = if (settings.remindersEnabled) {
-                                    "Reminder: Every ${settings.reminderIntervalDays} days (${settings.preferredReminderTest.displayName})"
+                                    "Reminder: Every ${settings.reminderIntervalDays} days at $timeStr (${settings.preferredReminderTest.displayName})"
                                 } else {
                                     "Periodic reminders are currently paused"
                                 },
@@ -1175,7 +1201,7 @@ private fun SettingsScreen(
     settings: UserSettings,
     onThemeModeChange: (ThemeMode) -> Unit,
     onDynamicColorChange: (Boolean) -> Unit,
-    onUpdateReminders: (Boolean, Int, TestType) -> Unit,
+    onUpdateReminders: (Boolean, Int, TestType, Int, Int) -> Unit,
     onTestNotification: () -> Unit,
     onExportJson: (android.net.Uri) -> Unit,
     onImportJson: (android.net.Uri) -> Unit,
@@ -1202,9 +1228,48 @@ private fun SettingsScreen(
     val versionName = packageInfo?.versionName ?: "1.1.2"
     val versionCode = packageInfo?.longVersionCode ?: 5L
 
-    val notificationPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { _ -> }
+    var showPermissionRequiredDialog by remember { mutableStateOf(false) }
+
+    val openAppSettings = remember(context) {
+        {
+            runCatching {
+                val intent = android.content.Intent(
+                    android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                ).apply {
+                    data = android.net.Uri.fromParts("package", context.packageName, null)
+                }
+                context.startActivity(intent)
+            }
+        }
+    }
+
+    if (showPermissionRequiredDialog) {
+        AlertDialog(
+            onDismissRequest = { showPermissionRequiredDialog = false },
+            title = { Text("Notification Permission Required") },
+            text = {
+                Text(
+                    "Notifications are currently disabled in Android settings for FUNCAP Tracker. " +
+                    "To receive test notifications and scheduled reminders, please enable Notifications in App Settings."
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showPermissionRequiredDialog = false
+                        openAppSettings()
+                    }
+                ) {
+                    Text("Open App Settings")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showPermissionRequiredDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 
     val exportJsonLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/json")
@@ -1338,13 +1403,15 @@ private fun SettingsScreen(
                                     Manifest.permission.POST_NOTIFICATIONS
                                 ) == PackageManager.PERMISSION_GRANTED
                                 if (!granted) {
-                                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                                    showPermissionRequiredDialog = true
                                 }
                             }
                             onUpdateReminders(
                                 enabled,
                                 settings.reminderIntervalDays,
-                                settings.preferredReminderTest
+                                settings.preferredReminderTest,
+                                settings.reminderHour,
+                                settings.reminderMinute
                             )
                         }
                     )
@@ -1368,7 +1435,13 @@ private fun SettingsScreen(
                                     selected = settings.reminderIntervalDays == days,
                                     onClick = {
                                         customIntervalText = days.toString()
-                                        onUpdateReminders(true, days, settings.preferredReminderTest)
+                                        onUpdateReminders(
+                                            true,
+                                            days,
+                                            settings.preferredReminderTest,
+                                            settings.reminderHour,
+                                            settings.reminderMinute
+                                        )
                                     },
                                     label = { Text(label) }
                                 )
@@ -1391,12 +1464,71 @@ private fun SettingsScreen(
                             Button(
                                 onClick = {
                                     val days = customIntervalText.toIntOrNull()?.coerceIn(1, 365) ?: 30
-                                    onUpdateReminders(true, days, settings.preferredReminderTest)
+                                    onUpdateReminders(
+                                        true,
+                                        days,
+                                        settings.preferredReminderTest,
+                                        settings.reminderHour,
+                                        settings.reminderMinute
+                                    )
                                 }
                             ) {
                                 Text("Apply")
                             }
                         }
+
+                        HorizontalDivider()
+
+                        val reminderTimeCal = remember(settings.reminderHour, settings.reminderMinute) {
+                            Calendar.getInstance().apply {
+                                set(Calendar.HOUR_OF_DAY, settings.reminderHour)
+                                set(Calendar.MINUTE, settings.reminderMinute)
+                            }
+                        }
+                        val reminderTimeFmt = remember { SimpleDateFormat("h:mm a", Locale.US) }
+                        val formattedReminderTime = reminderTimeFmt.format(reminderTimeCal.time)
+
+                        val timePickerDialog = remember(context, settings.reminderHour, settings.reminderMinute) {
+                            TimePickerDialog(
+                                context,
+                                { _, hourOfDay, minute ->
+                                    onUpdateReminders(
+                                        settings.remindersEnabled,
+                                        settings.reminderIntervalDays,
+                                        settings.preferredReminderTest,
+                                        hourOfDay,
+                                        minute
+                                    )
+                                },
+                                settings.reminderHour,
+                                settings.reminderMinute,
+                                false
+                            )
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = "Reminder Time of Day",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Text(
+                                    text = "Notification scheduled for $formattedReminderTime",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                            OutlinedButton(onClick = { timePickerDialog.show() }) {
+                                Text(formattedReminderTime)
+                            }
+                        }
+
+                        HorizontalDivider()
 
                         Text(
                             text = "Default Questionnaire for Reminder",
@@ -1410,7 +1542,9 @@ private fun SettingsScreen(
                                         onUpdateReminders(
                                             settings.remindersEnabled,
                                             settings.reminderIntervalDays,
-                                            type
+                                            type,
+                                            settings.reminderHour,
+                                            settings.reminderMinute
                                         )
                                     },
                                     label = { Text(type.displayName) }
@@ -1419,7 +1553,21 @@ private fun SettingsScreen(
                         }
 
                         OutlinedButton(
-                            onClick = onTestNotification,
+                            onClick = {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                    val isGranted = ContextCompat.checkSelfPermission(
+                                        context,
+                                        Manifest.permission.POST_NOTIFICATIONS
+                                    ) == PackageManager.PERMISSION_GRANTED
+                                    if (isGranted) {
+                                        onTestNotification()
+                                    } else {
+                                        showPermissionRequiredDialog = true
+                                    }
+                                } else {
+                                    onTestNotification()
+                                }
+                            },
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Icon(Icons.Default.NotificationsActive, contentDescription = null)

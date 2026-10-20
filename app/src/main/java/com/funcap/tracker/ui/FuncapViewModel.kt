@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 data class ActiveQuestionnaireState(
@@ -173,18 +175,33 @@ class FuncapViewModel(application: Application) : AndroidViewModel(application) 
     fun updateReminderSettings(
         enabled: Boolean,
         intervalDays: Int,
-        preferredTest: TestType
+        preferredTest: TestType,
+        reminderHour: Int = 13,
+        reminderMinute: Int = 0
     ) {
         viewModelScope.launch {
-            prefsRepo.updateReminderConfig(enabled, intervalDays, preferredTest)
+            prefsRepo.updateReminderConfig(
+                enabled,
+                intervalDays,
+                preferredTest,
+                reminderHour,
+                reminderMinute
+            )
             ReminderScheduler.schedulePeriodicReminder(
                 context = getApplication(),
                 enabled = enabled,
                 intervalDays = intervalDays,
-                preferredTestType = preferredTest
+                preferredTestType = preferredTest,
+                reminderHour = reminderHour,
+                reminderMinute = reminderMinute
             )
+            val timeCal = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, reminderHour)
+                set(Calendar.MINUTE, reminderMinute)
+            }
+            val timeStr = SimpleDateFormat("h:mm a", Locale.US).format(timeCal.time)
             _statusMessage.value = if (enabled) {
-                "Reminder scheduled every $intervalDays day(s) for ${preferredTest.displayName}."
+                "Reminder scheduled every $intervalDays day(s) at $timeStr for ${preferredTest.displayName}."
             } else {
                 "Periodic reminders paused."
             }
@@ -193,11 +210,16 @@ class FuncapViewModel(application: Application) : AndroidViewModel(application) 
 
     fun triggerTestReminderNotification() {
         val current = userSettings.value
-        ReminderScheduler.showReminderNotification(
+        val posted = ReminderScheduler.showReminderNotification(
             context = getApplication(),
-            preferredTestType = current.preferredReminderTest
+            preferredTestType = current.preferredReminderTest,
+            intervalDays = current.reminderIntervalDays
         )
-        _statusMessage.value = "Sent test notification for ${current.preferredReminderTest.displayName}."
+        if (posted) {
+            _statusMessage.value = "Sent test notification for ${current.preferredReminderTest.displayName}."
+        } else {
+            _statusMessage.value = "Notification permission is required to send reminders."
+        }
     }
 
     fun exportBackupJson(uri: Uri) {
