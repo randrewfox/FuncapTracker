@@ -10,9 +10,30 @@ FUNCAP Tracker is available on the Google Play Store.
 - **Request Access**: To request access to testing and use the app, please fill out the [Access Request Form](https://forms.gle/2tzaVuC8jJSwMXMk6).
 - **Google Play Store**: Once granted access, you can download the app from Google Play:
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.funcap.tracker)
+<a href="https://play.google.com/store/apps/details?id=com.funcap.tracker">
+  <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="55"/>
+</a>
 
 *(Direct link: [https://play.google.com/store/apps/details?id=com.funcap.tracker](https://play.google.com/store/apps/details?id=com.funcap.tracker))*
+
+## What is a FUNCAP Test?
+**FUNCAP** (*FUNctional CAPacity*) is a validated clinical questionnaire developed specifically to assess functional capacity and disability in individuals with Myalgic Encephalomyelitis / Chronic Fatigue Syndrome (**ME/CFS**) and similar energy-limiting or exertion-intolerant conditions (Sommerfelt et al., *J. Clin. Med.* 2024).
+
+Unlike traditional disability assessments that only ask whether an activity can be performed at a single moment, FUNCAP evaluates the **consequences and post-exertional malaise (PEM)** of performing everyday activities. Each question is scored on an official **0 to 6** scale measuring how severely an activity impacts a person's remaining capacity on that day and over subsequent days.
+
+The assessment covers **8 core functional domains**:
+- **Domain A**: Personal hygiene & basic functions
+- **Domain B**: Walking & moving around
+- **Domain C**: Being upright (*orthostatic tolerance*)
+- **Domain D**: Activities in the home
+- **Domain E**: Communication
+- **Domain F**: Activities outside the home
+- **Domain G**: Reactions to light & sound
+- **Domain H**: Concentration & cognitive stamina
+
+The assessment comes in two validated variants:
+- **FUNCAP55**: A comprehensive 55-item questionnaire for detailed diagnostic and baseline evaluation.
+- **FUNCAP27**: A shortened 27-item subset designed for routine monthly check-ins and longitudinal tracking.
 
 ## Key Features
 1. **Complete Official FUNCAP55 & FUNCAP27 Questionnaires**:
