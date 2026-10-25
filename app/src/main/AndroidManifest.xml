@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Required on Android 13+ (including Pixel 9 Pro / Android 15) for periodic test reminders -->
+    <!-- Required on Android 13+ for periodic test reminders -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -10,7 +10,7 @@
         Zero-Setup Cloud Backup:
         android:allowBackup="true" + backup_rules.xml + data_extraction_rules.xml
         automatically backs up the Room database and DataStore preferences to the user's
-        Google Account / Google Drive App Data whenever the Pixel 9 Pro is idle on Wi-Fi.
+        Google Account / Google Drive App Data whenever the device is idle on Wi-Fi.
     -->
     <application
         android:name=".FuncapApplication"

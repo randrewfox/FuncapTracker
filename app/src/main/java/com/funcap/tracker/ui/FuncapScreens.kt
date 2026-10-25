@@ -1347,7 +1347,7 @@ private fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Pixel Material You Dynamic Colors",
+                            text = "Material You Dynamic Colors",
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Medium
                         )

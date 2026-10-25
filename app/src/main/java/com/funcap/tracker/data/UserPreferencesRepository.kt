@@ -20,7 +20,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 
 data class UserSettings(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
-    val useDynamicColor: Boolean = true, // Material You dynamic palette on Pixel 9 Pro
+    val useDynamicColor: Boolean = true, // Material You dynamic palette
     val remindersEnabled: Boolean = true,
     val reminderIntervalDays: Int = 30, // Default: once a month (30 days)
     val reminderHour: Int = 13, // Default: 1 PM (13:00)

@@ -22,7 +22,7 @@ import java.util.Locale
  *    `backup_rules.xml` and `data_extraction_rules.xml` directly to the user's Google Account.
  * 2. Direct Google Drive File Export & Restore (Zero OAuth Setup):
  *    Uses Android's Storage Access Framework (`CreateDocument` / `OpenDocument`) which exposes
- *    the user's Google Drive directly in the Pixel 9 Pro system file picker.
+ *    the user's Google Drive directly in the system file picker.
  */
 object BackupManager {
 
