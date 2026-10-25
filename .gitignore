@@ -16,7 +16,7 @@ local.properties
 .kotlin/
 .ksp/
 
-# Android Studio / IntelliJ IDEA
+# Android Studio / IntelliJ IDEA user & workspace files
 .idea/caches/
 .idea/libraries/
 .idea/modules.xml
@@ -26,9 +26,11 @@ local.properties
 .idea/appInsightsSettings.xml
 .idea/deviceStreaming.xml
 .idea/deploymentTargetDropDown.xml
-.idea/gradle.xml
+.idea/deploymentTargetSelector.xml
 .idea/migrations.xml
+.idea/inspectionProfiles/
 .idea/shelf/
+.idea/misc.xml
 
 # OS specific files
 .DS_Store
