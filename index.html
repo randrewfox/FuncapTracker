@@ -159,34 +159,43 @@
       color: #e6edf3 !important;
     }
 
-    .discord-btn {
+    /* Square Icon Buttons */
+    .icon-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.96);
+    }
+
+    .discord-btn {
       background-color: #5865F2;
       color: #ffffff !important;
       border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 13px;
-      text-decoration: none !important;
-      cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease;
     }
 
     .discord-btn:hover {
       background-color: #4752C4;
       color: #ffffff !important;
-      text-decoration: none !important;
     }
 
-    .discord-btn:active {
-      transform: scale(0.98);
+    .github-btn {
+      background-color: transparent;
+      color: var(--text-color) !important;
+      border: 1px solid var(--border-color);
     }
 
-    .discord-icon {
-      flex-shrink: 0;
+    .github-btn:hover {
+      background-color: rgba(175, 184, 193, 0.15);
     }
 
     .theme-toggle-btn {
@@ -270,7 +279,11 @@
       .header-actions {
         gap: 8px;
       }
-      .discord-btn, .theme-toggle-btn {
+      .icon-btn {
+        width: 32px;
+        height: 32px;
+      }
+      .theme-toggle-btn {
         padding: 6px 10px;
         font-size: 12px;
       }
@@ -279,20 +292,29 @@
 </head>
 <body>
   <div class="container">
-    <!-- Top Header Bar with Brand Title, Discord Support Link & Theme Toggle -->
+    <!-- Top Header Bar with Brand Title, Discord Icon, GitHub Icon & Theme Toggle -->
     <header class="header-bar">
       <a href="#" class="brand-title" onclick="resetToHome(event)">
         <img src="./favicon.png" alt="FUNCAP Icon">
         <span>FUNCAP Tracker</span>
       </a>
       <div class="header-actions">
-        <a href="https://discord.gg/SHdxJVmEW" target="_blank" rel="noopener noreferrer" class="discord-btn">
-          <svg class="discord-icon" viewBox="0 0 127.14 96.36" width="16" height="16" fill="currentColor">
+        <!-- Discord Support Square Icon Button -->
+        <a href="https://discord.gg/SHdxJVmEW" target="_blank" rel="noopener noreferrer" class="icon-btn discord-btn" title="Discord Support" aria-label="Discord Support">
+          <svg viewBox="0 0 127.14 96.36" width="18" height="18" fill="currentColor">
             <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22c2.72-27.18-4.47-51.13-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.1,53,91,65.69,84.69,65.69Z"/>
           </svg>
-          <span>Discord Support</span>
         </a>
-        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">
+
+        <!-- GitHub Repository Square Icon Button -->
+        <a href="https://github.com/randrewfox/FuncapTracker" target="_blank" rel="noopener noreferrer" class="icon-btn github-btn" title="GitHub Repository" aria-label="GitHub Repository">
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+        </a>
+
+        <!-- Light/Dark Mode Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme">
           🌙 Dark Mode
         </button>
       </div>
