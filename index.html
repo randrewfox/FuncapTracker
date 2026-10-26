@@ -56,6 +56,12 @@
       border-radius: 8px;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .brand-title {
       font-weight: 700;
       font-size: 18px;
@@ -153,6 +159,36 @@
       color: #e6edf3 !important;
     }
 
+    .discord-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #5865F2;
+      color: #ffffff !important;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none !important;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .discord-btn:hover {
+      background-color: #4752C4;
+      color: #ffffff !important;
+      text-decoration: none !important;
+    }
+
+    .discord-btn:active {
+      transform: scale(0.98);
+    }
+
+    .discord-icon {
+      flex-shrink: 0;
+    }
+
     .theme-toggle-btn {
       display: inline-flex;
       align-items: center;
@@ -160,10 +196,10 @@
       background-color: transparent;
       color: var(--text-color);
       border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: background-color 0.2s ease, border-color 0.2s ease;
     }
@@ -228,21 +264,38 @@
       }
       .header-bar {
         padding: 10px 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .header-actions {
+        gap: 8px;
+      }
+      .discord-btn, .theme-toggle-btn {
+        padding: 6px 10px;
+        font-size: 12px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Top Header Bar with Brand Title & Theme Toggle -->
+    <!-- Top Header Bar with Brand Title, Discord Support Link & Theme Toggle -->
     <header class="header-bar">
       <a href="#" class="brand-title" onclick="resetToHome(event)">
         <img src="./favicon.png" alt="FUNCAP Icon">
         <span>FUNCAP Tracker</span>
       </a>
-      <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">
-        🌙 Dark Mode
-      </button>
+      <div class="header-actions">
+        <a href="https://discord.gg/SHdxJVmEW" target="_blank" rel="noopener noreferrer" class="discord-btn">
+          <svg class="discord-icon" viewBox="0 0 127.14 96.36" width="16" height="16" fill="currentColor">
+            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22c2.72-27.18-4.47-51.13-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.92,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.92,96.1,53,91,65.69,84.69,65.69Z"/>
+          </svg>
+          <span>Discord Support</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">
+          🌙 Dark Mode
+        </button>
+      </div>
     </header>
 
     <!-- Dynamic Markdown Content Area -->
