@@ -30,6 +30,7 @@ enum class TestType(
 enum class ThemeMode(val label: String) {
     LIGHT("Light Mode"),
     DARK("Dark Mode"),
+    OLED_DARK("Pure Black (OLED)"),
     SYSTEM("System Default")
 }
 

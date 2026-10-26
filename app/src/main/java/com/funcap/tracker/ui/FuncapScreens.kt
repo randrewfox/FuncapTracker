@@ -171,11 +171,11 @@ fun FuncapTrackerAppRoot(viewModel: FuncapViewModel) {
                 },
                 actions = {
                     // Quick Light/Dark Mode toggle button in top bar for instant theme switching
-                    val isDark = settings.themeMode == ThemeMode.DARK
+                    val isDark = settings.themeMode == ThemeMode.DARK || settings.themeMode == ThemeMode.OLED_DARK
                     IconButton(
                         onClick = {
                             viewModel.setThemeMode(
-                                if (isDark) ThemeMode.LIGHT else ThemeMode.DARK
+                                if (isDark) ThemeMode.LIGHT else ThemeMode.OLED_DARK
                             )
                         }
                     ) {
@@ -1303,6 +1303,7 @@ private fun SettingsScreen(
                 )
 
                 // Direct Light / Dark Mode Switch
+                val isDark = settings.themeMode == ThemeMode.DARK || settings.themeMode == ThemeMode.OLED_DARK
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -1310,20 +1311,20 @@ private fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Dark Mode Toggle",
+                            text = "Dark / OLED Mode Toggle",
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "Switch between Light Mode and Dark Mode",
+                            text = "Switch between Light Mode and Dark / OLED Pure Black",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                     Switch(
-                        checked = settings.themeMode == ThemeMode.DARK,
-                        onCheckedChange = { isDark ->
-                            onThemeModeChange(if (isDark) ThemeMode.DARK else ThemeMode.LIGHT)
+                        checked = isDark,
+                        onCheckedChange = { checked ->
+                            onThemeModeChange(if (checked) ThemeMode.OLED_DARK else ThemeMode.LIGHT)
                         }
                     )
                 }

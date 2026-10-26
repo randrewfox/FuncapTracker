@@ -55,6 +55,31 @@ private val DarkColors = darkColorScheme(
     onSurface = Color(0xFFDEE4E2)
 )
 
+// Pure Black (OLED) palette designed for zero screen glare and maximum photophobia relief
+private val OledDarkColors = darkColorScheme(
+    primary = Color(0xFF80D5D0),
+    onPrimary = Color(0xFF003735),
+    primaryContainer = Color(0xFF003735),
+    onPrimaryContainer = Color(0xFF9CF1EC),
+    secondary = Color(0xFFB0CCC9),
+    onSecondary = Color(0xFF1B3533),
+    secondaryContainer = Color(0xFF1E3332),
+    onSecondaryContainer = Color(0xFFCCE8E5),
+    tertiary = Color(0xFFB1C8E8),
+    onTertiary = Color(0xFF19324B),
+    tertiaryContainer = Color(0xFF1E3248),
+    onTertiaryContainer = Color(0xFFD0E4FF),
+    background = Color(0xFF000000), // Pure OLED pitch black
+    onBackground = Color(0xFFE1E3E2),
+    surface = Color(0xFF000000), // Pure OLED pitch black
+    onSurface = Color(0xFFE1E3E2),
+    surfaceVariant = Color(0xFF121212),
+    onSurfaceVariant = Color(0xFFC2C8C6),
+    surfaceContainer = Color(0xFF0A0A0A),
+    surfaceContainerLow = Color(0xFF050505),
+    surfaceContainerHigh = Color(0xFF141414)
+)
+
 @Composable
 fun FuncapTrackerTheme(
     themeMode: ThemeMode,
@@ -63,11 +88,12 @@ fun FuncapTrackerTheme(
 ) {
     val darkTheme = when (themeMode) {
         ThemeMode.LIGHT -> false
-        ThemeMode.DARK -> true
+        ThemeMode.DARK, ThemeMode.OLED_DARK -> true
         ThemeMode.SYSTEM -> isSystemInDarkTheme()
     }
 
     val colorScheme = when {
+        themeMode == ThemeMode.OLED_DARK -> OledDarkColors
         useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
