@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-color-mode="dark">
+<html lang="en" data-theme="dark" data-color-mode="dark" data-dark-theme="dark" data-light-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
 
     html[data-theme="dark"] {
       --bg-color: #0d1117;
-      --text-color: #c9d1d9;
+      --text-color: #e6edf3;
       --border-color: #30363d;
       --btn-bg: #238636;
       --btn-text: #ffffff;
@@ -83,6 +83,74 @@
 
     .markdown-body {
       background-color: transparent !important;
+      color: var(--text-color) !important;
+    }
+
+    /* High-contrast Dark Mode typography & element overrides */
+    html[data-theme="dark"] .markdown-body {
+      color: #e6edf3 !important;
+    }
+
+    html[data-theme="dark"] .markdown-body h1,
+    html[data-theme="dark"] .markdown-body h2,
+    html[data-theme="dark"] .markdown-body h3,
+    html[data-theme="dark"] .markdown-body h4,
+    html[data-theme="dark"] .markdown-body h5,
+    html[data-theme="dark"] .markdown-body h6 {
+      color: #ffffff !important;
+      border-bottom-color: #30363d !important;
+    }
+
+    html[data-theme="dark"] .markdown-body p,
+    html[data-theme="dark"] .markdown-body li,
+    html[data-theme="dark"] .markdown-body span,
+    html[data-theme="dark"] .markdown-body div {
+      color: #e6edf3 !important;
+    }
+
+    html[data-theme="dark"] .markdown-body blockquote {
+      color: #d29922 !important;
+      border-left-color: #d29922 !important;
+      background-color: #161b22 !important;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+
+    html[data-theme="dark"] .markdown-body a {
+      color: #58a6ff !important;
+      text-decoration: underline;
+    }
+
+    html[data-theme="dark"] .markdown-body code {
+      background-color: #161b22 !important;
+      color: #f0f6fc !important;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    html[data-theme="dark"] .markdown-body pre {
+      background-color: #161b22 !important;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+    }
+
+    html[data-theme="dark"] .markdown-body hr {
+      background-color: #30363d !important;
+    }
+
+    html[data-theme="dark"] .markdown-body table tr {
+      background-color: #0d1117 !important;
+      border-top-color: #30363d !important;
+    }
+
+    html[data-theme="dark"] .markdown-body table tr:nth-child(2n) {
+      background-color: #161b22 !important;
+    }
+
+    html[data-theme="dark"] .markdown-body table th,
+    html[data-theme="dark"] .markdown-body table td {
+      border-color: #30363d !important;
+      color: #e6edf3 !important;
     }
 
     .theme-toggle-btn {
@@ -151,7 +219,7 @@
     .loading {
       text-align: center;
       padding: 40px 0;
-      color: #6e7781;
+      color: #8b949e;
     }
 
     @media (max-width: 767px) {
@@ -201,6 +269,8 @@
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       document.documentElement.setAttribute('data-color-mode', theme);
+      document.documentElement.setAttribute('data-dark-theme', 'dark');
+      document.documentElement.setAttribute('data-light-theme', 'light');
       localStorage.setItem('funcap_theme', theme);
 
       const btn = document.getElementById('theme-toggle');
